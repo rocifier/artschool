@@ -38,6 +38,10 @@ gem 'spring',        group: :development
 # gem 'unicorn'
 gem 'puma'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
