@@ -1,0 +1,8 @@
+<h1>All tabs</h1>
+<div id="tabs">
+<ul>
+  <% @tabs.each do |tab| %>
+  <li><a href="tabs/<%= tab.name %>"><%= tab.name %></a></li>
+  <% end %>
+</ul>
+</div>
