@@ -1,8 +1,9 @@
 <h1>All tabs</h1>
+<%= link_to 'New tab', new_tab_path %>
 <div id="tabs">
 <ul>
   <% @tabs.each do |tab| %>
-  <li><a href="tabs/<%= tab.name %>"><%= tab.name %></a></li>
+  <li><a href="tabs/<%= tab.id %>"><%= tab.name %></a></li>
   <% end %>
 </ul>
 </div>
