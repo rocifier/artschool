@@ -20,6 +20,7 @@ gem 'omniauth-linkedin'
 
 gem 'jquery-ui-rails'
 gem 'RedCloth'
+gem 'cancancan'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

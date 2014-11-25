@@ -1,3 +1,9 @@
 <%= raw(RedCloth.new(@tab.ajax_content).to_html) %>
-<br/><%= link_to "edit", edit_tab_path(@tab) %>
-<br/><%= link_to "delete", destroy_tab_path(@tab) %>
+<br/><%= 
+if can? :update, @tab
+  link_to "edit", edit_tab_path(@tab)
+end %>
+<br/><%= 
+if can? :destroy, @tab 
+  link_to "delete", destroy_tab_path(@tab), method: :delete  
+end %>

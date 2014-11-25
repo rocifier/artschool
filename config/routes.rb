@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   get 'admin' => 'admin#index'
+  get 'admin/users' => 'admin#users', :as => :manage_users
 
   get 'tabs'            => 'tabs#index', :as => :tabs
   post 'tabs'           => 'tabs#create', :as => :create_tab

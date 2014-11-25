@@ -1,0 +1,7 @@
+<%= form_for @tab do |edit_tab_form| %>
+  Tab Name: <%= edit_tab_form.text_field :name %>
+  <br/> 
+  <%= edit_tab_form.text_area 'ajax_content', rows: 30, cols: 80 %>
+  <br/>
+  <%= edit_tab_form.submit 'Save Tab' %>
+<% end %>  

@@ -1,8 +1,2 @@
 <h1>Add course tab</h1>
-<%= form_for :tabs, url: {action: 'create'} do |create_tab_form| %>
-  Tab Name: <%= create_tab_form.text_field :name %>
-  <br/> 
-  <%= create_tab_form.text_area 'ajax_content',  rows: 30, cols: 80 %>
-  <br/>
-  <%= create_tab_form.submit 'Save Tab' %>
-<% end %>
+<%= render :partial => 'tab_new_edit_form' %>

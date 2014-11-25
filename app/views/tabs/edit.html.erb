@@ -1,8 +1,2 @@
 <h1>Edit course tab</h1>
-<%= form_for @tab, url: update_tab_path(@tab), method: :put do |edit_tab_form| %>
-  Tab Name: <%= edit_tab_form.text_field :name %>
-  <br/> 
-  <%= edit_tab_form.text_area 'ajax_content', rows: 30, cols: 80 %>
-  <br/>
-  <%= edit_tab_form.submit 'Save Tab' %>
-<% end %>
+<%= render :partial => 'tab_new_edit_form' %>

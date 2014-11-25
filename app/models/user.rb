@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
+  ROLES = %w[admin moderator author member guest banned]
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
@@ -33,7 +34,8 @@ class User < ActiveRecord::Base
           name: auth.info.name,
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0,20],
+          role: guest 
         )
         user.save!
       end
