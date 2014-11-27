@@ -2,41 +2,31 @@ class TabsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @tabs = Tab.all
+    @tabs = @tabs.order('position')
   end
   def show
-    @tab = Tab.find(params['id'])     
     render partial: 'tab'
   end
-  def create
-    tab = Tab.new
-    tab.name = params['tab']['name']
-    tab.ajax_content = params['tab']['ajax_content']
-    tab.save!
-    redirect_to tabs_path 
-  end
   def new
-    @tab = Tab.new
-    @tab.id = 0
   end
   def edit
-    @tab = Tab.find(params['id'])
+  end
+  def create
+    @tab.update_attributes(tab_params)
+    redirect_to tabs_path
   end 
   def update
-    tab = Tab.find(params['id'])
-    tab.name = params['tab']['name']
-    tab.ajax_content = params['tab']['ajax_content']
-    tab.save!
+    @tab.update_attributes(tab_params)
     redirect_to tabs_path
   end 
   def destroy
-    tab = Tab.find(params['id'])
-    tab.destroy
+    @tab.destroy
     redirect_to tabs_path
   end
 
 private
   def tab_params
-    params.permit(:tab)
+    params.require(:tab).permit(:name, :ajax_content, :position)
   end
+
 end

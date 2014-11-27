@@ -4,8 +4,8 @@
 
 <h1>All users</h1>
 <% @users.each do |user| %>
-  <%=best_in_place user, :name%> 
-  <%=best_in_place user, :email%> 
-  <%=best_in_place user, :role%> 
+  <%=best_in_place [:admin, user], :name%> 
+  <%=best_in_place [:admin, user], :email%> 
+  <%=best_in_place [:admin, user], :role%> 
 
 <% end %>

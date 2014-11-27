@@ -3,7 +3,7 @@
 <div id="tabs">
 <ul>
   <% @tabs.each do |tab| %>
-  <li><a href="tabs/<%= tab.id %>"><%= tab.name %></a></li>
+  <li><a href="<%= tab_path(tab) %>"><%= tab.name %></a></li>
   <% end %>
 </ul>
 </div>
