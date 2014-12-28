@@ -13,6 +13,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
+gem 'rb-readline'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -22,6 +23,9 @@ gem 'jquery-ui-rails'
 gem 'RedCloth'
 gem 'cancancan'
 gem "best_in_place"
+gem 'font-awesome-rails'
+
+gem 'jsonforem', path: "~/jsonforem"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -41,6 +45,10 @@ gem 'spring',        group: :development
 # Use unicorn as the app server
 # gem 'unicorn'
 gem 'puma'
+
+group :development do
+  gem 'pry-rails'
+end
 
 group :production do
   gem 'rails_12factor'

@@ -1,0 +1,103 @@
+// Place all the styles related to the forums controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.category, .forum, .topic, .post {
+  background-color: #eee;
+  margin: 0;
+  margin-top: -1px;
+  border: 1px solid #ddd;
+  padding: 0;
+}
+
+.forum:hover, 
+.topic:hover, 
+.post:hover {
+  background-color: #ddd;
+}
+
+.category > a.title,
+.forum > a.title,
+.topic > a.title,
+.post > a.title {
+  font-size: 110%;
+  font-weight: bold;
+  padding-top: 0.7em;
+  padding-bottom: 0.3em;
+}
+
+.category > a.description,
+.forum > a.description,
+.topic > a.description,
+.post > a.description {
+  font-size: 90%;
+  padding-top: 0.3em;
+  padding-bottom: 1em;
+}
+
+.category > a.title,
+.category > a.description,
+.forum > a.title,
+.forum > a.description,
+.topic > a.title,
+.topic > a.description,
+.post > a.title,
+.post > a.description {
+  padding-left: 40px;
+  display: block;
+  cursor: pointer;
+  color: #666;
+  text-decoration: none;
+}
+
+.category {
+  background-color: rgb(3, 115, 179);
+  color: #fff;
+  border: 1px solid rgb(0, 101, 159);
+  padding: 9px 10px;
+  padding-right: 0;
+  margin: 0;
+}
+
+.category:before {
+  content: "\f07c";
+  padding-right: 5px;
+  font-family: "FontAwesome";
+}
+
+/* floating grid: who needs bootstrap with html5? */
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -10px;
+  margin-bottom: 10px;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+[class*="col-"] {
+  padding: 0.6em;
+  width: 100%;
+}
+
+@media all and ( min-width: 600px ) {
+
+  .col-2-3 {
+    width: 66.66%;
+  }
+  .col-1-2 {
+    width: 50%;
+  }
+  .col-1-3 {
+    width: 33.33%;
+  }
+  .col-1-4 {
+    width: 20%;
+  }
+  .col-1-8 {
+    width: 12.5%;
+  }
+ 
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141127021911) do
+ActiveRecord::Schema.define(version: 20141202074038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,46 @@ ActiveRecord::Schema.define(version: 20141127021911) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+
+  create_table "jsonforem_categories", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jsonforem_forums", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "jsonforem_categories_id"
+  end
+
+  add_index "jsonforem_forums", ["jsonforem_categories_id"], name: "index_jsonforem_forums_on_jsonforem_categories_id", using: :btree
+
+  create_table "jsonforem_posts", force: true do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "jsonforem_topics_id"
+    t.integer  "jsonforem_posts_id"
+    t.integer  "user_id"
+  end
+
+  add_index "jsonforem_posts", ["jsonforem_posts_id"], name: "index_jsonforem_posts_on_jsonforem_posts_id", using: :btree
+  add_index "jsonforem_posts", ["jsonforem_topics_id"], name: "index_jsonforem_posts_on_jsonforem_topics_id", using: :btree
+
+  create_table "jsonforem_topics", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "jsonforem_forums_id"
+  end
+
+  add_index "jsonforem_topics", ["jsonforem_forums_id"], name: "index_jsonforem_topics_on_jsonforem_forums_id", using: :btree
 
   create_table "tabs", force: true do |t|
     t.string   "name"

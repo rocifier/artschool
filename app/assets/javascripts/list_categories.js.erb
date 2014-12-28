@@ -1,0 +1,247 @@
+<% require 'jsonforem' %>
+
+function gotoCategory(link) {
+  var newurl = "/forums/category/" + link.dataset.catid;
+  Turbolinks.visit(newurl); // reload the body tag with the url contents
+};
+
+function gotoForum(link) {
+  var newurl = "/forums/forum/" + link.dataset.forumid;
+  Turbolinks.visit(newurl); // reload the body tag with the url contents
+};
+
+function gotoTopic(link) {
+  var newurl = "/forums/topic/" + link.dataset.topicid;
+  Turbolinks.visit(newurl); // reload the body tag with the url contents
+};
+
+function gotoPost(link) {
+  var newurl = "/forums/post/" + link.dataset.postid;
+  Turbolinks.visit(newurl); // reload the body tag with the url contents
+};
+
+ready = function() {
+
+/*
+    //
+    // CREATE CATEGORY
+    //
+    $.ajax ({
+        type: "POST",
+        url: "/forumapi/categories",
+        dataType: 'json',
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({ "category": {"title": "Lounge", "description" : "A place to just hang out and talk about whatever you like."} }),
+        success: function () {
+          alert("Category created."); 
+        }
+    });
+*/
+/*
+    //
+    // CREATE FORUM
+    //
+    $.ajax ({
+        type: "POST",
+        url: "/forumapi/forums",
+        dataType: 'json',
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({ "forum": {"title": "General", "description" : "General chatter.", "jsonforem_categories_id": "1"} }),
+        success: function () {
+          alert("Forum created."); 
+        }
+    });
+*/
+
+  $.fn.listCategories = function() {
+    var elem = $(this);
+      // First query: get list of categories
+      return $.getJSON( "/forumapi/categories", {} )
+        .done(function( json ) {
+
+          for (var c = 0; c < json.length; c++) {
+            var categoryHtml = '<div class="category">';
+            categoryHtml    += json[c].title + '</div>';
+
+            if (json[c].forums) {
+              var forumarray = json[c].forums;
+              var forumArrayLength = forumarray.length;
+              for (var f = 0; f < forumArrayLength; f++) {
+                categoryHtml += '<div class="forum">';
+                categoryHtml += '<a class="title" data-forumid="' + forumarray[f].id +
+                                '" onclick="javascript:gotoForum(this);">' + 
+                                forumarray[f].title + '</a>';
+                categoryHtml += '<a class="description" data-forumid="' + forumarray[f].id +
+                                '" onclick="javascript:gotoForum(this);">' + 
+                                forumarray[f].description + '</a>';
+                categoryHtml += '</div>';
+                
+              }
+            }
+            categoryHtml    += '</div>';
+            elem.append(categoryHtml);
+          }
+
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+
+          var err = textStatus + ", " + error;
+          elem.append( "Request Failed: " + err + 
+              ". Please try refreshing the page or come back later." );
+
+      });
+
+  };
+
+  $.fn.listForums = function() {
+    var elem = $(this);
+      return $.getJSON( "/forumapi/categories/" + window.pageid + "/forums", {} )
+        .done(function( json ) {
+
+          var arrayLength = json.length;
+          for (var i = 0; i < arrayLength; i++) {
+            var forumHtml = '<div class="forum">';
+            forumHtml += '<a class="title" data-forumid="' + json[i].id +
+                         '" onclick="javascript:gotoForum(this);">' + 
+                         json[i].title + '</a>';
+            forumHtml += '<a class="description" data-forumid="' + json[i].id +
+                         '" onclick="javascript:gotoForum(this);">' + 
+                         json[i].description + '</a>';
+            forumHtml += '</div>';
+            elem.append(forumHtml);
+          }
+
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+
+          var err = textStatus + ", " + error;
+          elem.append( "Request Failed: " + err + 
+              ". Please try refreshing the page or come back later." );
+
+      });
+
+  };
+
+  $.fn.listTopics = function() {
+    var elem = $(this);
+      return $.getJSON( "/forumapi/forums/" + window.pageid + "/topics", {} )
+        .done(function( json ) {
+
+          var arrayLength = json.length;
+          for (var i = 0; i < arrayLength; i++) {
+            var topicHtml = '<div class="topic">';
+            topicHtml += '<a class="title" data-topicid="' + json[i].id +
+                         '" onclick="javascript:gotoTopic(this);">' + 
+                         json[i].title + '</a>';
+            topicHtml += '<a class="description" data-topicid="' + json[i].id +
+                         '" onclick="javascript:gotoTopic(this);">' + 
+                         json[i].description + '</a>';
+            topicHtml += '</div>';
+            elem.append(topicHtml);
+          }
+
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+
+          var err = textStatus + ", " + error;
+          elem.append( "Request Failed: " + err + 
+              ". Please try refreshing the page or come back later." );
+
+      });
+
+  };
+
+  $.fn.listPosts = function() {
+    var elem = $(this);
+      return $.getJSON( "/forumapi/topics/" + window.pageid + "/posts", {} )
+        .done(function( json ) {
+
+          var arrayLength = json.length;
+          var topicHtml = "";
+          for (var i = 0; i < arrayLength; i++) {
+            if (i % 4 == 0) topicHtml += '<div class="row">';
+
+            topicHtml += '<div class="col-1-4">';
+            topicHtml += '<a class="post-title" data-postid="' + json[i].id +
+                         '" onclick="javascript:gotoPost(this);">' + 
+                         json[i].title + '</a><br/>';
+            topicHtml += '</div>';
+
+            if (i % 4 == 3) topicHtml += '</div>';
+            
+          }
+          elem.append(topicHtml);
+
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+
+          var err = textStatus + ", " + error;
+          elem.append( "Request Failed: " + err + 
+              ". Please try refreshing the page or come back later." );
+
+      });
+
+  };
+
+  $.fn.listComments = function() {
+    var elem = $(this);
+
+      // Make an initial JSON call for the post itself
+      return $.getJSON( "/forumapi/posts/" + window.pageid, {} )
+        .done(function( json ) {
+          commentsHtml  = '<div class="row">';
+          commentsHtml += '  <div class="col-1-1">';
+          commentsHtml += '    <div class="post-title"> '+ json.title + '</div><br/>';
+          commentsHtml += '    <div class="post-blurb"> '+ json.content + '</div><br/>';
+          commentsHtml += '  </div>';
+          commentsHtml += '</div><br/><br/>';
+          elem.append(commentsHtml);
+
+          // Make a second JSON call for the comments
+          $.getJSON( "/forumapi/posts/" + window.pageid + "/comments", {} )
+            .done(function( json ) {
+
+            var arrayLength = json.length;
+            var commentsHtml = "";
+            for (var i = 0; i < arrayLength; i++) {
+              commentsHtml += '<div class="row">';
+              commentsHtml += '  <div class="col-1-1">';
+              commentsHtml += '    <div class="post-title"> '+ json[i].title + '</div><br/>';
+              commentsHtml += '    <div class="post-blurb"> '+ json[i].content + '</div><br/>';
+              commentsHtml += '  </div>';
+              commentsHtml += '</div>';
+            }
+            elem.append(commentsHtml);
+
+          })
+          .fail(function( jqxhr, textStatus, error ) {
+            var err = textStatus + ", " + error;
+            elem.append( "Request Failed: " + err + 
+                ". Please try refreshing the page or come back later." );
+          });
+
+        })
+        .fail(function( jqxhr, textStatus, error ) {
+
+          var err = textStatus + ", " + error;
+          elem.append( "Request Failed: " + err + 
+              ". Please try refreshing the page or come back later." );
+
+      });
+
+  };
+
+  $("#forum-categories").listCategories();
+  $("#forum-forums").listForums();
+  $("#forum-topics").listTopics();
+  $("#forum-posts").listPosts();
+  $("#forum-comments").listComments();
+
+};
+
+$(document).ready(ready); // hard refresh only
+$(document).on('page:load', ready); // turbo links only
+
+

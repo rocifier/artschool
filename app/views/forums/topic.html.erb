@@ -1,0 +1,72 @@
+<script>
+window.pageid=<%=@topic.id%>;
+
+$(document).on("page:change", loadFormHandler);
+
+function loadFormHandler() {
+
+  //callback handler for form submit
+  $("#new_post").submit(function(e)
+  {
+    postData = {};
+    $(this).find('select[value!=""], input[value!=""]').each(function(){
+      // if its not the post array
+      var nameattr = $(this).attr('name');
+      if (nameattr.indexOf("post") == -1) {
+        postData[nameattr] = $(this).val();
+      }
+    });
+    // add posts array manually
+    obj = {};
+    obj["topic_id"] = $("#post_topic_id").val();
+    obj["user_id"] = $("#post_user_id").val();
+    obj["title"] = $("#post_title").val();
+    obj["content"] = $("#post_content").val();
+    postData["post"] = obj;
+
+    var jsonData = JSON.stringify(postData)
+    var formURL = $(this).attr("action");
+    $.ajax(
+    {
+        url : formURL,
+        type: "POST",
+        contentType: "application/json",
+        dataType: 'json',
+        data : jsonData,
+        success:function(data, textStatus, jqXHR) 
+        {
+            Turbolinks.visit("<%=forums_path%>/post/" + data.id);
+        },
+        error: function(jqXHR, textStatus, errorThrown) 
+        {
+            //if fails      
+        }
+    });
+    e.preventDefault(); //STOP default action
+  });
+
+}
+</script>
+<h1><%=@topic.title%></h1>
+
+<h2>New post</h2>
+<%= form_for(@post, url: jsonforem.posts_path) do|f| %>
+<%= f.hidden_field :topic_id, value: @topic.id %>
+<%= f.hidden_field :user_id, value: @post.user_id %>
+
+<p> 
+  <%= f.label :title %><br /> 
+  <%= f.text_field :title %> 
+</p>
+<p> 
+  <%= f.label :content %><br /> 
+  <%= f.text_field :content %> 
+</p>
+
+<p> 
+  <%= f.submit %> 
+</p> 
+<% end %> 
+
+<div id="forum-posts"></div>
+

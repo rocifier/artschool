@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
 
   #validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
+  def forum_admin?
+    true
+  end
+
   def self.find_for_oauth(auth, signed_in_resource = nil)
 
     # Get the identity and user if they exist
@@ -35,7 +39,7 @@ class User < ActiveRecord::Base
           #username: auth.info.nickname || auth.uid,
           email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
           password: Devise.friendly_token[0,20],
-          role: guest 
+          role: "guest"
         )
         user.save!
       end

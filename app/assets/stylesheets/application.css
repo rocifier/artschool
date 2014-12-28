@@ -12,5 +12,62 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  *= require jquery-ui/tabs
  */
+
+body, html {
+	margin: 0;
+	padding: 0;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1.42857;
+	
+}
+
+a {
+	color: #13aff0;
+}
+
+#content {
+	padding: 2em;
+}
+
+/* nav */
+.nav {
+	position: relative;
+	margin: 0;
+	background-color: #05090a;
+	line-height: 20px;
+	min-height: 50px;
+}
+.nav:after {
+	clear: both;                    
+}
+.nav ul {
+	padding: 0;
+	margin: 0;
+}
+.nav li {
+	margin: 0 5px 10px 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+	float: left;
+}
+.nav a {
+	padding: 17px 15px 13px 15px;
+	text-decoration: none;
+	color: #999;
+	display: block;
+	position: relative;
+}
+.nav a:hover {
+	color: #fff;
+}
+.nav .current a {
+	background: #333;
+	color: #fff;
+}
+

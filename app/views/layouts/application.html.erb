@@ -2,16 +2,30 @@
 <html>
 <head>
   <title>Artschool</title>
+  <%= stylesheet_link_tag    'application', 'http://fonts.googleapis.com/css?family=Open+Sans:700,400', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<nav class="nav">
+	<ul>
+		<li class="current"><%= link_to "Home", root_path%></li>
+		<li><%= link_to "Forums", forums_path%></li>
+		<li><%= link_to "Fundamentals", fundamentals_path%></li>
+		<li><%= link_to "Techniques", techniques_path%></li>
+		<li><%= link_to "Design", design_path%></li>
+		<li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+	</ul>
+</nav>
 
-<%= yield %>
+<div id="content">
+	<p class="notice"><%= notice %></p>
+	<p class="alert"><%= alert %></p>
+
+	<%= yield %>
+</div>
 
 </body>
 </html>
