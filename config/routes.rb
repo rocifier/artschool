@@ -1,20 +1,19 @@
 Rails.application.routes.draw do
-
-namespace :admin do
-  resources :users
-end
+  namespace :admin do
+    resources :users
+  end
 
   resources :tabs
 
   put 'tabs/create' => 'tabs#update'
 
-  devise_for :users, :controllers => {omniauth_callbacks: 'omniauth_callbacks'}
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   authenticated :user do
     root 'dashboard#index', as: :authenticated_root
   end
 
-  mount Jsonforem::Engine, at: "/forumapi", as: :jsonforem
+  mount Jsonforem::Engine, at: '/forumapi', as: :jsonforem
 
   root 'home#index'
 
@@ -28,5 +27,4 @@ end
   get 'course/fundamentals' => 'course#fundamentals', as: :fundamentals
   get 'course/techniques' => 'course#techniques', as: :techniques
   get 'course/design' => 'course#design', as: :design
-
 end

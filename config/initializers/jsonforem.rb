@@ -1,2 +1,2 @@
 require 'jsonforem'
-Jsonforem.user_class = "User"
+Jsonforem.user_class = 'User'

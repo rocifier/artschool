@@ -29,6 +29,7 @@ gem 'puma'
 group :development do
   gem 'pry-rails'
   gem 'spring'
+  gem 'rubocop'
 end
 
 group :production do
