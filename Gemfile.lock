@@ -1,5 +1,6 @@
-PATH
-  remote: ~/jsonforem
+GIT
+  remote: git://github.com/rocifier/jsonforem.git
+  revision: b7fe0fbcb2dc8802642aa1a654f97376ad5b6019
   specs:
     jsonforem (0.2.4)
       jbuilder
